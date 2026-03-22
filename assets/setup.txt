@@ -1,0 +1,35 @@
+DocuMind AI — local setup
+
+This assets/ folder holds diagrams, architecture images, and other static reference material for the project.
+
+Python virtual environment (backend)
+
+  From the repository root:
+
+    cd backend
+    python3 -m venv .venv
+
+  Activate the venv:
+
+    macOS / Linux:
+      source .venv/bin/activate
+
+    Windows (cmd):
+      .venv\Scripts\activate.bat
+
+    Windows (PowerShell):
+      .venv\Scripts\Activate.ps1
+
+  Install dependencies:
+
+    pip install --upgrade pip
+    pip install -r requirements.txt
+
+  Deactivate when finished:
+
+    deactivate
+
+Notes
+
+  - requirements.txt lives in backend/requirements.txt.
+  - Use Python 3.10+ unless the project pins otherwise.
