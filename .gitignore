@@ -28,10 +28,15 @@ Thumbs.db
 *.swp
 *.swo
 
-# Uploads & local data (adjust as features land)
+# Uploads & local data
 uploads/
 data/
 *.db
+storage/*
+!storage/.gitkeep
+models/
+*.index
+*.faiss
 
 # Coverage / test
 .coverage
