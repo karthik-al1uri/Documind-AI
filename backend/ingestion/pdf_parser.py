@@ -240,9 +240,10 @@ def _classify_text_block(text: str, block: dict, page) -> str:
 
     bbox = block.get("bbox", (0, 0, 0, 0))
     page_height = page.rect.height
-    if bbox[1] < page_height * 0.08:
+    # Narrow bands — 8% was too aggressive: normal body text at y≈60 was labeled header.
+    if bbox[1] < page_height * 0.03:
         return "header"
-    if bbox[3] > page_height * 0.92:
+    if bbox[3] > page_height * 0.97:
         return "footer"
 
     return "paragraph"

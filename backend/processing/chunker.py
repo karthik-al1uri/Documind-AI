@@ -152,9 +152,8 @@ def chunk_page(
         heading = section["heading"]
 
         for elem in section["elements"]:
-            # Skip headers and footers — they are not indexed
-            if elem.element_type in ("header", "footer"):
-                continue
+            # Index header/footer text too: many native PDFs misclassify the first
+            # body block as "header" (top-of-page zone). Skipping them produced 0 chunks.
 
             text = elem.text.strip()
             if not text:

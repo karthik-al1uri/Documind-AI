@@ -3,11 +3,12 @@
 Defines a stateful graph that orchestrates retrieval, generation, NLI
 verification, and critic-driven retry:
 
-1. Retrieve — call the retrieval pipeline for top-k chunks
-2. Generate — produce a grounded answer with per-claim citations
-3. Verify  — run NLI entailment on each claim
-4. Decide  — if >20% claims fail and retries remain, refine and loop
-5. Output  — assemble AnswerResponse with confidence badges
+1. expand_query — HyDE hypothetical passage for dense retrieval
+2. Retrieve — call the retrieval pipeline for top-k chunks
+3. Generate — produce a grounded answer with per-claim citations
+4. Verify  — run NLI entailment on each claim
+5. Decide  — if >20% claims fail and retries remain, refine and loop
+6. Output  — assemble AnswerResponse with confidence badges
 """
 
 import logging
@@ -21,6 +22,7 @@ from agent.nli_verifier import verify_claims, check_verification_threshold
 from agent.critic_agent import analyze_and_refine, should_retry
 from models.schemas import AnswerResponse, Claim, RetrievalResult
 from retrieval.retrieval_pipeline import run_retrieval_pipeline
+from retrieval.hyde_expander import expand_query as run_hyde_expansion
 from utils.database import async_session
 
 logger = logging.getLogger(__name__)
@@ -29,6 +31,14 @@ logger = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 # Graph nodes
 # ---------------------------------------------------------------------------
+
+async def expand_query_node(state: Dict[str, Any]) -> Dict[str, Any]:
+    """HyDE: build a hypothetical answer string for embedding (dense retrieval)."""
+    base_q = state.get("refined_query") or state["query"]
+    hyde = run_hyde_expansion(base_q)
+    logger.info("expand_query node: HyDE length=%d", len(hyde))
+    return {**state, "hyde_expanded": hyde}
+
 
 async def retrieve_node(state: Dict[str, Any]) -> Dict[str, Any]:
     """Call the retrieval pipeline to fetch relevant chunks.
@@ -51,6 +61,7 @@ async def retrieve_node(state: Dict[str, Any]) -> Dict[str, Any]:
             query=query,
             top_k=top_k,
             document_ids=document_ids,
+            hyde_text=state.get("hyde_expanded"),
         )
 
     logger.info("Retrieved %d chunks", len(results))
@@ -194,23 +205,30 @@ def build_agent_graph() -> StateGraph:
     """
     graph = StateGraph(dict)
 
+    graph.add_node("expand_query", expand_query_node)
     graph.add_node("retrieve", retrieve_node)
     graph.add_node("generate", generate_node)
     graph.add_node("verify", verify_node)
     graph.add_node("critic", critic_node)
     graph.add_node("output", output_node)
 
-    graph.set_entry_point("retrieve")
+    graph.set_entry_point("expand_query")
+    graph.add_edge("expand_query", "retrieve")
     graph.add_edge("retrieve", "generate")
     graph.add_edge("generate", "verify")
     graph.add_conditional_edges("verify", decide_after_verify, {
         "critic": "critic",
         "output": "output",
     })
-    graph.add_edge("critic", "retrieve")
+    graph.add_edge("critic", "expand_query")
     graph.add_edge("output", END)
 
     return graph.compile()
+
+
+def build_graph():
+    """Alias for audits / external tools expecting ``build_graph``."""
+    return build_agent_graph()
 
 
 # Module-level compiled graph
@@ -236,6 +254,7 @@ async def run_agent(
         "query": query,
         "top_k": top_k,
         "document_ids": document_ids,
+        "hyde_expanded": None,
         "retrieval_results": [],
         "generated_answer": None,
         "claims": [],

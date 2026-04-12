@@ -67,10 +67,37 @@ def _predict_entailment(premise: str, hypothesis: str) -> dict:
         outputs = model(**inputs)
         probs = torch.softmax(outputs.logits, dim=-1)[0]
 
-    # DeBERTa NLI label order: contradiction=0, neutral=1, entailment=2
-    labels = ["contradiction", "neutral", "entailment"]
-    scores = {label: probs[i].item() for i, label in enumerate(labels)}
+    # Label order is model-specific (cross-encoder NLI is often contradiction, entailment, neutral).
+    id2label = getattr(model.config, "id2label", None) or {}
+    scores = {}
+    for i in range(len(probs)):
+        key = id2label.get(str(i), id2label.get(i, f"label_{i}"))
+        name = str(key).lower()
+        if "contradiction" in name or name == "contradict":
+            scores["contradiction"] = probs[i].item()
+        elif "entail" in name:
+            scores["entailment"] = probs[i].item()
+        elif "neutral" in name:
+            scores["neutral"] = probs[i].item()
+        else:
+            scores[str(key)] = probs[i].item()
+
+    # Ensure canonical keys exist
+    scores.setdefault("contradiction", 0.0)
+    scores.setdefault("neutral", 0.0)
+    scores.setdefault("entailment", 0.0)
     return scores
+
+
+class NLIVerifier:
+    """Thin wrapper for standalone entailment checks (premise = source, hypothesis = claim)."""
+
+    model_name = NLI_MODEL
+
+    async def verify(self, claim: str, context: str) -> float:
+        """Return probability mass on the entailment class."""
+        scores = _predict_entailment(context, claim)
+        return float(scores.get("entailment", 0.0))
 
 
 def verify_claims(claims: List[Claim]) -> List[Claim]:

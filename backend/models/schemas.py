@@ -111,7 +111,7 @@ class UploadResponse(BaseModel):
 class QueryRequest(BaseModel):
     """Incoming query from the user or agent pipeline."""
     query: str
-    top_k: int = 5
+    top_k: int = Field(default=5, ge=1, le=100)
     document_ids: Optional[List[str]] = None
 
     @field_validator("query")

@@ -5,6 +5,7 @@ detected entities with typed placeholders (e.g. [PERSON], [EMAIL_ADDRESS]).
 """
 
 import logging
+import re
 from typing import List, Tuple
 
 from presidio_analyzer import AnalyzerEngine, RecognizerResult
@@ -13,11 +14,33 @@ from presidio_anonymizer.entities import OperatorConfig
 
 logger = logging.getLogger(__name__)
 
+# Regex fallbacks — Presidio often misses formatted SSNs / phones in short strings.
+_SSN_RE = re.compile(r"\b\d{3}-\d{2}-\d{4}\b|\b\d{3}\s\d{2}\s\d{4}\b")
+_EMAIL_RE = re.compile(
+    r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b",
+)
+_PHONE_RE = re.compile(
+    r"\b(?:\+?1[-.\s]?)?(?:\(\d{3}\)|\d{3})[-.\s]?\d{3}[-.\s]?\d{4}\b|\b\d{3}-\d{3}-\d{4}\b",
+)
+
+
+def _apply_regex_redactions(text: str) -> str:
+    """Apply deterministic regex redactions after Presidio."""
+    if not text:
+        return text
+    out = _SSN_RE.sub("[US_SSN]", text)
+    out = _EMAIL_RE.sub("[EMAIL_ADDRESS]", out)
+    out = _PHONE_RE.sub("[PHONE_NUMBER]", out)
+    return out
+
+
 # Lazy-loaded engines
 _analyzer: AnalyzerEngine | None = None
 _anonymizer: AnonymizerEngine | None = None
 
-# PII entity types to detect
+# PII entity types to detect.
+# DATE_TIME is intentionally excluded: Presidio often flags durations like
+# "30 days" / "90 days", which are not PII and break grounded answers.
 SUPPORTED_ENTITIES = [
     "PERSON",
     "EMAIL_ADDRESS",
@@ -26,12 +49,7 @@ SUPPORTED_ENTITIES = [
     "US_SSN",
     "US_BANK_NUMBER",
     "IP_ADDRESS",
-    "IBAN_CODE",
-    "NRP",
     "LOCATION",
-    "DATE_TIME",
-    "US_DRIVER_LICENSE",
-    "US_PASSPORT",
 ]
 
 
@@ -111,7 +129,8 @@ def redact_pii(text: str, language: str = "en") -> Tuple[str, List[dict]]:
     )
 
     if not analysis_results:
-        return text, []
+        final_text = _apply_regex_redactions(text)
+        return final_text, []
 
     # Build operator config: replace each entity with [ENTITY_TYPE]
     operators = {}
@@ -143,7 +162,8 @@ def redact_pii(text: str, language: str = "en") -> Tuple[str, List[dict]]:
         len(redactions),
         [r["entity_type"] for r in redactions],
     )
-    return anonymized.text, redactions
+    final_text = _apply_regex_redactions(anonymized.text)
+    return final_text, redactions
 
 
 def redact_page_texts(

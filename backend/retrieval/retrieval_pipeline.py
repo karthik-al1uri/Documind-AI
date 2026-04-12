@@ -35,6 +35,7 @@ async def run_retrieval_pipeline(
     query: str,
     top_k: int = 5,
     document_ids: Optional[List[str]] = None,
+    hyde_text: Optional[str] = None,
 ) -> List[RetrievalResult]:
     """Execute the full retrieval pipeline for a query.
 
@@ -43,6 +44,8 @@ async def run_retrieval_pipeline(
         query: The user's natural language query.
         top_k: Number of final results to return (default 5).
         document_ids: Optional list of document UUIDs to restrict scope.
+        hyde_text: Pre-computed HyDE passage (from LangGraph expand_query node).
+            When None, expand_query(query) is called here (backward compatible).
 
     Returns:
         List[RetrievalResult]: Top-k retrieval results with full metadata.
@@ -50,7 +53,7 @@ async def run_retrieval_pipeline(
     logger.info("Starting retrieval pipeline for query: '%s' (top_k=%d)", query[:80], top_k)
 
     # Step 1 — HyDE query expansion
-    hypothetical_answer = expand_query(query)
+    hypothetical_answer = hyde_text if hyde_text is not None else expand_query(query)
     logger.info("HyDE expansion complete (%d chars)", len(hypothetical_answer))
 
     # Step 2 — Embed the hypothetical answer
