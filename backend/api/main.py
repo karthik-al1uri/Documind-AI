@@ -5,22 +5,29 @@ retrieval, health checks, and the main /retrieve endpoint consumed by the
 agent pipeline.
 """
 
+import asyncio
+import json
 import os
 import logging
+import uuid as uuid_mod
 from contextlib import asynccontextmanager
+from datetime import datetime
 from typing import List
 from uuid import UUID
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, UploadFile, File, Depends, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from utils.database import get_session, Document, Page, Chunk, async_session
+from utils.database import get_session, Document, Page, Chunk, Feedback, async_session
 from utils.init_db import init_database
 from models.schemas import (
+    AnswerResponse,
     DocumentSchema,
+    FeedbackRequest,
     PageSchema,
     PageJSON,
     ChunkSchema,
@@ -30,6 +37,7 @@ from models.schemas import (
 )
 from ingestion.ingestion_pipeline import run_ingestion_pipeline
 from retrieval.retrieval_pipeline import run_retrieval_pipeline
+from agent.graph import run_agent
 
 load_dotenv()
 
@@ -296,3 +304,151 @@ async def retrieve(
     except Exception as e:
         logger.error("Retrieval failed: %s", str(e))
         raise HTTPException(status_code=500, detail=f"Retrieval failed: {str(e)}")
+
+# ---------------------------------------------------------------------------
+# Agent Query (Phase 5)
+# ---------------------------------------------------------------------------
+
+@app.post("/query", response_model=AnswerResponse, tags=["agent"])
+async def query_documents(request: QueryRequest) -> AnswerResponse:
+    """Run the agentic RAG pipeline to answer a question.
+
+    Orchestrates retrieval → LLM generation → NLI verification → critic retry.
+    Returns a grounded answer with per-claim confidence badges and sources.
+
+    Args:
+        request: QueryRequest with query text, top_k, and optional document_ids.
+
+    Returns:
+        AnswerResponse: Grounded answer with verified claims and sources.
+    """
+    logger.info("Agent query: %s", request.query)
+    try:
+        response = await run_agent(
+            query=request.query,
+            top_k=request.top_k,
+            document_ids=request.document_ids,
+        )
+        return response
+    except Exception as exc:
+        logger.error("Agent pipeline error: %s", exc, exc_info=True)
+        raise HTTPException(status_code=500, detail=str(exc))
+
+
+@app.post("/query/stream", tags=["agent"])
+async def query_documents_stream(request: QueryRequest):
+    """Stream the agent pipeline progress via Server-Sent Events.
+
+    Emits events for each stage: retrieving, generating, verifying, and the
+    final answer. The Next.js frontend connects to this for real-time updates.
+
+    Args:
+        request: QueryRequest with query text, top_k, and optional document_ids.
+
+    Returns:
+        StreamingResponse with text/event-stream content type.
+    """
+    async def event_stream():
+        query_id = str(uuid_mod.uuid4())
+
+        yield f"data: {json.dumps({'type': 'status', 'stage': 'retrieving', 'query_id': query_id})}\n\n"
+        await asyncio.sleep(0.05)
+
+        try:
+            yield f"data: {json.dumps({'type': 'status', 'stage': 'generating'})}\n\n"
+
+            response = await run_agent(
+                query=request.query,
+                top_k=request.top_k,
+                document_ids=request.document_ids,
+            )
+
+            yield f"data: {json.dumps({'type': 'status', 'stage': 'verifying'})}\n\n"
+            await asyncio.sleep(0.05)
+
+            # Stream answer token-by-token for visual effect
+            words = response.answer.split()
+            buffer = ""
+            for i, word in enumerate(words):
+                buffer += word + " "
+                if i % 5 == 4 or i == len(words) - 1:
+                    yield f"data: {json.dumps({'type': 'token', 'text': buffer})}\n\n"
+                    buffer = ""
+                    await asyncio.sleep(0.02)
+
+            yield f"data: {json.dumps({'type': 'answer', 'data': response.model_dump()})}\n\n"
+            yield f"data: {json.dumps({'type': 'done'})}\n\n"
+
+        except Exception as exc:
+            logger.error("Streaming error: %s", exc, exc_info=True)
+            yield f"data: {json.dumps({'type': 'error', 'message': str(exc)})}\n\n"
+
+    return StreamingResponse(event_stream(), media_type="text/event-stream")
+
+
+# ---------------------------------------------------------------------------
+# Feedback (Phase 6)
+# ---------------------------------------------------------------------------
+
+@app.post("/feedback", tags=["feedback"])
+async def submit_feedback(
+    request: FeedbackRequest,
+    session: AsyncSession = Depends(get_session),
+) -> dict:
+    """Submit thumbs-up/down feedback on an answer.
+
+    Persists feedback to the feedback table for future evaluation and
+    fine-tuning data collection.
+
+    Args:
+        request: FeedbackRequest with query, answer, rating, optional correction.
+        session: Async database session (injected).
+
+    Returns:
+        Confirmation dict with feedback ID.
+    """
+    fb = Feedback(
+        query=request.query,
+        answer=request.answer,
+        rating=request.rating,
+        correction=request.correction,
+        document_ids=request.document_ids,
+    )
+    session.add(fb)
+    await session.commit()
+    await session.refresh(fb)
+
+    logger.info("Feedback recorded: %s (rating=%d)", str(fb.id), request.rating)
+    return {"status": "recorded", "feedback_id": str(fb.id)}
+
+
+@app.get("/feedback", tags=["feedback"])
+async def list_feedback(
+    session: AsyncSession = Depends(get_session),
+) -> list:
+    """List all recorded feedback entries.
+
+    Args:
+        session: Async database session (injected).
+
+    Returns:
+        List of feedback dicts.
+    """
+    result = await session.execute(
+        select(Feedback).order_by(Feedback.created_at.desc())
+    )
+    rows = result.scalars().all()
+    return [
+        {
+            "id": str(fb.id),
+            "query": fb.query,
+            "answer": fb.answer,
+            "rating": fb.rating,
+            "correction": fb.correction,
+            "document_ids": fb.document_ids,
+            "created_at": fb.created_at.isoformat() if fb.created_at else None,
+        }
+        for fb in rows
+    ]
+
+
