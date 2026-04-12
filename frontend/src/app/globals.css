@@ -2,26 +2,83 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap');
-
 :root {
-  --font-body: 'DM Sans', system-ui, sans-serif;
-  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-inter: 'Inter', system-ui, sans-serif;
+  --dm-bg: #0f1117;
+  --dm-surface: #16181f;
+  --dm-border: #272b36;
 }
 
-html, body { font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+html,
+body {
+  font-family: var(--font-inter);
+  -webkit-font-smoothing: antialiased;
+  background: var(--dm-bg);
+  color: #e6e8ef;
+}
 
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #dee2e6; border-radius: 3px; }
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #272b36;
+  border-radius: 3px;
+}
 
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-.streaming-cursor::after { content:'▍'; animation:blink 1s infinite; color:#4c6ef5; }
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+.streaming-cursor::after {
+  content: '';
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 2px;
+  background: #3b82f6;
+  animation: blink 1s infinite;
+  vertical-align: text-bottom;
+}
 
-@keyframes fadeInUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
-.animate-fade-in-up { animation: fadeInUp 0.3s ease-out forwards; }
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-in-up {
+  animation: fadeInUp 0.3s ease-out forwards;
+}
 
-@keyframes pulseGreen { 0%,100%{box-shadow:0 0 0 0 rgba(47,158,68,.3)} 50%{box-shadow:0 0 0 4px rgba(47,158,68,0)} }
-.badge-verified { animation: pulseGreen 2s infinite; }
+.citation-highlight {
+  outline: 2px solid #facc15;
+  outline-offset: 2px;
+  background: rgba(250, 204, 21, 0.12);
+  transition: all 0.2s ease;
+}
 
-.citation-highlight { outline:2px solid #4c6ef5; outline-offset:2px; background:rgba(76,110,245,.08); transition:all .2s ease; }
+.panel-slide-in {
+  animation: slideIn 0.25s ease-out forwards;
+}
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0.8;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

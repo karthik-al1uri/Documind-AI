@@ -38,6 +38,9 @@ models/
 *.index
 *.faiss
 
+# Project intelligence
+claude.md
+
 # Coverage / test
 .coverage
 htmlcov/

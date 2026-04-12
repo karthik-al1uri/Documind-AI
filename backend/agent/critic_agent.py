@@ -63,19 +63,21 @@ async def analyze_and_refine(
 
     logger.info("Critic Agent refining query; %d failed claims", len(failed))
 
-    """client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    gk = (os.getenv("GROQ_API_KEY") or "").strip()
+    ok = (os.getenv("OPENAI_API_KEY") or "").strip()
+    if (not gk or gk == "your_key_here") and (not ok or ok == "your_key_here"):
+        logger.info("No LLM API key; skipping critic refinement")
+        return original_query
+
+    if gk and gk != "your_key_here":
+        client = AsyncOpenAI(api_key=gk, base_url="https://api.groq.com/openai/v1")
+        model = "llama-3.3-70b-versatile"
+    else:
+        client = AsyncOpenAI(api_key=ok)
+        model = "gpt-4o"
+
     response = await client.chat.completions.create(
-        model="gpt-4o",
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0.3,
-        max_tokens=256,
-    )"""
-    client = AsyncOpenAI(
-        api_key=os.getenv("GROQ_API_KEY"),
-        base_url="https://api.groq.com/openai/v1",
-    )
-    response = await client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
+        model=model,
         messages=[{"role": "user", "content": prompt}],
         temperature=0.3,
         max_tokens=256,

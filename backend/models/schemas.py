@@ -5,7 +5,7 @@ data structures used across ingestion, retrieval, agent, and evaluation
 pipelines. This is the single source of truth for data shapes.
 """
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from typing import List, Optional, Dict, Any
 from datetime import datetime
 
@@ -99,6 +99,7 @@ class UploadResponse(BaseModel):
     """Response from POST /upload."""
     document_id: str
     filename: str
+    file_type: str
     status: str
     message: str = "Ingestion complete"
 
@@ -112,6 +113,41 @@ class QueryRequest(BaseModel):
     query: str
     top_k: int = 5
     document_ids: Optional[List[str]] = None
+
+    @field_validator("query")
+    @classmethod
+    def query_not_empty(cls, v: str) -> str:
+        s = (v or "").strip()
+        if not s:
+            raise ValueError("query must not be empty")
+        return s
+
+
+# ---------------------------------------------------------------------------
+# Compare (multi-document)
+# ---------------------------------------------------------------------------
+
+
+class CompareRequest(BaseModel):
+    """Request body for POST /compare."""
+    document_ids: List[str] = Field(..., min_length=2, max_length=2)
+    focus: Optional[str] = None
+
+
+class CompareDifference(BaseModel):
+    """One row of a structured document comparison."""
+    topic: str
+    document_1: str
+    document_2: str
+    similarity_score: float
+
+
+class CompareResponse(BaseModel):
+    """Response from POST /compare."""
+    comparison_id: str
+    documents: List[str]
+    differences: List[CompareDifference]
+    summary: str
 
 
 class RetrievalResult(BaseModel):

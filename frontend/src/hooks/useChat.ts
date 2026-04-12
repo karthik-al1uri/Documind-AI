@@ -1,7 +1,5 @@
 /**
- * React hook for chat state management with SSE streaming.
- * Handles sending queries, receiving streaming responses, and
- * maintaining conversation history.
+ * React hook for chat state management with SSE streaming (POST /query/stream).
  */
 
 'use client';
@@ -17,13 +15,20 @@ export function useChat() {
 
   const sendMessage = useCallback(async (query: string, documentIds?: string[]) => {
     const userMsg: ChatMessage = {
-      id: crypto.randomUUID(), role: 'user', content: query, timestamp: new Date(),
+      id: crypto.randomUUID(),
+      role: 'user',
+      content: query,
+      timestamp: new Date(),
     };
     const assistantMsg: ChatMessage = {
-      id: crypto.randomUUID(), role: 'assistant', content: '', timestamp: new Date(), status: 'streaming',
+      id: crypto.randomUUID(),
+      role: 'assistant',
+      content: '',
+      timestamp: new Date(),
+      status: 'streaming',
     };
 
-    setMessages(prev => [...prev, userMsg, assistantMsg]);
+    setMessages((prev) => [...prev, userMsg, assistantMsg]);
     setIsLoading(true);
     setCurrentStage('retrieving');
 
@@ -34,7 +39,7 @@ export function useChat() {
             setCurrentStage(event.stage || null);
             break;
           case 'token':
-            setMessages(prev => {
+            setMessages((prev) => {
               const updated = [...prev];
               const last = updated[updated.length - 1];
               if (last.role === 'assistant') last.content += event.text || '';
@@ -42,7 +47,7 @@ export function useChat() {
             });
             break;
           case 'answer':
-            setMessages(prev => {
+            setMessages((prev) => {
               const updated = [...prev];
               const last = updated[updated.length - 1];
               if (last.role === 'assistant') {
@@ -55,10 +60,9 @@ export function useChat() {
             break;
           case 'done':
             setCurrentStage(null);
-            setIsLoading(false);
             break;
           case 'error':
-            setMessages(prev => {
+            setMessages((prev) => {
               const updated = [...prev];
               const last = updated[updated.length - 1];
               if (last.role === 'assistant') {
@@ -73,15 +77,16 @@ export function useChat() {
         }
       });
     } catch (err) {
-      setMessages(prev => {
+      setMessages((prev) => {
         const updated = [...prev];
         const last = updated[updated.length - 1];
         if (last.role === 'assistant') {
-          last.content = `Connection error: ${err}`;
+          last.content = `Connection error: ${String(err)}`;
           last.status = 'error';
         }
         return updated;
       });
+    } finally {
       setIsLoading(false);
       setCurrentStage(null);
     }

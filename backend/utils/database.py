@@ -58,7 +58,7 @@ class Document(Base):
     upload_date = Column(DateTime, default=datetime.utcnow, server_default=func.now())
     storage_path = Column(Text, nullable=False)
     status = Column(Text, default="pending")
-    metadata_ = Column("metadata", JSONB, default={}, server_default=text("'{}'::jsonb"))
+    metadata_ = Column("metadata", JSONB, default={})
 
     pages = relationship("Page", back_populates="document", cascade="all, delete-orphan")
     chunks = relationship("Chunk", back_populates="document", cascade="all, delete-orphan")
@@ -99,7 +99,7 @@ class Chunk(Base):
     section_heading = Column(Text, nullable=True)
     page_number = Column(Integer, nullable=True)
     bbox = Column(JSONB, nullable=True)
-    metadata_ = Column("metadata", JSONB, default={}, server_default=text("'{}'::jsonb"))
+    metadata_ = Column("metadata", JSONB, default={})
     embedding_id = Column(Integer, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow, server_default=func.now())
 

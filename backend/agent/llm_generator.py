@@ -1,14 +1,15 @@
 """DocuMind AI — LLM answer generation with grounded citations.
 
-Takes retrieved chunks and a user query, generates an answer using GPT-4o,
-and extracts individual claims with source annotations. Each claim is mapped
-back to the chunk that supports it.
+Takes retrieved chunks and a user query, generates an answer using Groq,
+OpenAI, or a deterministic fallback when no API key is configured, and
+extracts individual claims with source annotations.
 """
 
 import json
 import logging
 import os
-from typing import List, Tuple
+import re
+from typing import List, Optional, Tuple
 
 from openai import AsyncOpenAI
 
@@ -40,6 +41,20 @@ The contract was signed on January 15, 2024. The total value is $1.2M.
   {"text": "The total value is $1.2M.", "source_index": 2, "confidence": 0.88}
 ]
 </claims>"""
+
+
+def _llm_config() -> Optional[Tuple[AsyncOpenAI, str]]:
+    """Return (async client, model) if any LLM API is configured."""
+    gk = os.getenv("GROQ_API_KEY", "").strip()
+    if gk and gk != "your_key_here":
+        return (
+            AsyncOpenAI(api_key=gk, base_url="https://api.groq.com/openai/v1"),
+            "llama-3.3-70b-versatile",
+        )
+    ok = os.getenv("OPENAI_API_KEY", "").strip()
+    if ok and ok != "your_key_here":
+        return (AsyncOpenAI(api_key=ok), "gpt-4o")
+    return None
 
 
 def _build_context(results: List[RetrievalResult]) -> str:
@@ -97,27 +112,53 @@ def _parse_response(raw: str, sources: List[RetrievalResult]) -> Tuple[str, List
     return answer, claims
 
 
+def _fallback_answer(query: str, retrieval_results: List[RetrievalResult]) -> Tuple[str, List[Claim]]:
+    """Build a grounded summary from the top retrieved passages without an LLM.
+
+    Args:
+        query: User question.
+        retrieval_results: Retrieval hits (non-empty).
+
+    Returns:
+        Answer string and at least one claim citing the strongest source.
+    """
+    top = retrieval_results[0]
+    snippet = re.sub(r"\s+", " ", top.text).strip()
+    if len(snippet) > 900:
+        snippet = snippet[:897] + "…"
+    answer = (
+        f"Based on {top.source_filename} (page {top.page_number}), the sources indicate: "
+        f"{snippet}"
+    )
+    claims = [
+        Claim(
+            text=answer,
+            confidence=0.65,
+            citation=top,
+        )
+    ]
+    logger.info("Using offline/heuristic answer (no LLM API key configured)")
+    return answer, claims
+
+
 async def generate_answer(
     query: str,
     retrieval_results: List[RetrievalResult],
-    #model: str = "gpt-4o",
-    model: str = "llama-3.3-70b-versatile",
 ) -> Tuple[str, List[Claim]]:
     """Generate a grounded answer with per-claim citations.
 
     Args:
         query: The user's natural-language question.
         retrieval_results: Top-k retrieval hits from the retrieval pipeline.
-        model: OpenAI model identifier. Defaults to gpt-4o.
 
     Returns:
         Tuple of (answer_text, list_of_structured_claims).
     """
-    #client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-    client = AsyncOpenAI(
-        api_key=os.getenv("GROQ_API_KEY"),
-        base_url="https://api.groq.com/openai/v1",
-    )
+    cfg = _llm_config()
+    if not cfg:
+        return _fallback_answer(query, retrieval_results)
+
+    client, model = cfg
     context = _build_context(retrieval_results)
     user_prompt = f"Query: {query}\n\nSources:\n{context}"
 
@@ -135,6 +176,9 @@ async def generate_answer(
 
     raw_output = response.choices[0].message.content or ""
     answer, claims = _parse_response(raw_output, retrieval_results)
+
+    if not answer.strip():
+        return _fallback_answer(query, retrieval_results)
 
     logger.info("Generated answer with %d claims", len(claims))
     return answer, claims

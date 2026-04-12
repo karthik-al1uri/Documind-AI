@@ -1,21 +1,26 @@
 'use client';
 
-import { ShieldCheck, ShieldAlert, ShieldQuestion } from 'lucide-react';
 import { Claim } from '@/types';
 
-const CFG: Record<string, { icon: React.ReactNode; bg: string; text: string; ring: string }> = {
-  entailment:    { icon: <ShieldCheck size={10} />,    bg: 'bg-green-50',  text: 'text-green-700',  ring: 'ring-green-200' },
-  neutral:       { icon: <ShieldQuestion size={10} />, bg: 'bg-yellow-50', text: 'text-yellow-700', ring: 'ring-yellow-200' },
-  contradiction: { icon: <ShieldAlert size={10} />,    bg: 'bg-red-50',    text: 'text-red-700',    ring: 'ring-red-200' },
-};
+function tier(p: number) {
+  if (p >= 0.85) return { label: 'Verified', dot: 'bg-dm-success', text: 'text-dm-success' };
+  if (p >= 0.6) return { label: 'Partial', dot: 'bg-dm-warning', text: 'text-dm-warning' };
+  return { label: 'Low confidence', dot: 'bg-dm-danger', text: 'text-dm-danger' };
+}
 
 export function ClaimBadge({ claim }: { claim: Claim }) {
-  const label = claim.entailment_label || 'neutral';
-  const c = CFG[label] || CFG.neutral;
+  const p = claim.confidence ?? 0;
+  const t = tier(p);
+  const title = `"${claim.text}" — ${(p * 100).toFixed(0)}%${
+    claim.entailment_label ? ` · ${claim.entailment_label}` : ''
+  }`;
   return (
-    <span title={`"${claim.text}" — ${label} (${((claim.entailment_score || 0) * 100).toFixed(0)}%)`}
-      className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium ring-1 ${c.bg} ${c.text} ${c.ring} ${label === 'entailment' ? 'badge-verified' : ''}`}>
-      {c.icon} {((claim.confidence || 0) * 100).toFixed(0)}%
+    <span
+      title={title}
+      className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-medium bg-dm-surface border border-dm-border ${t.text}`}
+    >
+      <span className={`h-1.5 w-1.5 rounded-full ${t.dot}`} />
+      {t.label} · {(p * 100).toFixed(0)}%
     </span>
   );
 }

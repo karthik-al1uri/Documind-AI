@@ -1,15 +1,19 @@
 import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 import './globals.css';
 
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+
 export const metadata: Metadata = {
-  title: 'DocuMind AI — Document Intelligence',
-  description: 'Enterprise document intelligence platform with agentic RAG',
+  title: 'DocuMind.ai — Enterprise document intelligence',
+  description:
+    'Agentic RAG over enterprise documents with grounded answers, citations, and verification.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className="bg-surface-1 text-ink-0 min-h-screen">{children}</body>
+    <html lang="en" className={inter.variable}>
+      <body className="min-h-screen bg-dm-bg text-dm-text antialiased">{children}</body>
     </html>
   );
 }

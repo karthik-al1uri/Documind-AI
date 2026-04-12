@@ -69,3 +69,17 @@ export interface SSEEvent {
   message?: string;
   query_id?: string;
 }
+
+export interface CompareDifferenceRow {
+  topic: string;
+  document_1: string;
+  document_2: string;
+  similarity_score: number;
+}
+
+export interface CompareResponse {
+  comparison_id: string;
+  documents: string[];
+  differences: CompareDifferenceRow[];
+  summary: string;
+}
