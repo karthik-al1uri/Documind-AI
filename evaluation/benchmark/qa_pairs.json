@@ -1,0 +1,52 @@
+[
+  {
+    "question": "What is the total contract value?",
+    "ground_truth": "The total contract value is $1.2 million.",
+    "document_ids": []
+  },
+  {
+    "question": "When was the agreement signed?",
+    "ground_truth": "The agreement was signed on January 15, 2024.",
+    "document_ids": []
+  },
+  {
+    "question": "Who are the parties involved in the contract?",
+    "ground_truth": "The parties involved are Acme Corp and Widget Industries.",
+    "document_ids": []
+  },
+  {
+    "question": "What is the payment schedule?",
+    "ground_truth": "Payments are due quarterly, with the first payment due 30 days after signing.",
+    "document_ids": []
+  },
+  {
+    "question": "What are the termination clauses?",
+    "ground_truth": "Either party may terminate with 90 days written notice.",
+    "document_ids": []
+  },
+  {
+    "question": "What is the revenue for Q3 2024?",
+    "ground_truth": "Q3 2024 revenue was $4.5 million, a 12% increase year-over-year.",
+    "document_ids": []
+  },
+  {
+    "question": "Summarize the key findings of the research paper.",
+    "ground_truth": "The research found that hybrid retrieval combining dense and sparse methods outperforms either alone by 15% on recall.",
+    "document_ids": []
+  },
+  {
+    "question": "What are the risk factors mentioned in the report?",
+    "ground_truth": "Key risk factors include supply chain disruptions, regulatory changes, and currency fluctuations.",
+    "document_ids": []
+  },
+  {
+    "question": "What is the invoice total and due date?",
+    "ground_truth": "The invoice total is $15,750 and is due on March 1, 2024.",
+    "document_ids": []
+  },
+  {
+    "question": "What recommendations does the consultant provide?",
+    "ground_truth": "The consultant recommends increasing investment in R&D by 20% and expanding into the European market.",
+    "document_ids": []
+  }
+]
