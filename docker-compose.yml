@@ -34,5 +34,17 @@ services:
       - ./storage:/app/storage
       - ./models:/app/models
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:8000
+
 volumes:
   pgdata:
