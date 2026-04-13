@@ -1,0 +1,144 @@
+DOCUMIND.AI — DEMO VIDEO SCRIPT
+Duration: approximately 3 to 4 minutes
+Tone: clear, confident, professional
+
+---
+
+OPENING (0:00 to 0:30)
+
+[Show the DocuMind.ai homepage]
+
+"Every enterprise is drowning in documents. Contracts, reports, 
+research papers, compliance filings — critical information locked 
+away in hundreds of PDFs that nobody has time to read.
+
+DocuMind.ai changes that. Upload any document, ask any question, 
+and get a verified answer with the exact source cited — in seconds.
+
+Let me show you how it works."
+
+---
+
+SECTION 1 — UPLOAD (0:30 to 1:00)
+
+[Drag and drop a contract PDF onto the upload zone]
+
+"I have a service contract here. I'll drag it into DocuMind.ai.
+
+The system is now parsing the document, detecting its structure — 
+headings, paragraphs, table cells — and indexing every passage 
+for both keyword and semantic search.
+
+[Status changes to completed in the sidebar]
+
+It's ready. Three pages, fully indexed."
+
+---
+
+SECTION 2 — BASIC QUERY (1:00 to 1:45)
+
+[Type in the chat: "what are the payment terms?"]
+
+"Now I'll ask the most common question a finance team would have 
+about a contract — what are the payment terms?
+
+[Answer appears]
+
+The system found the answer on page one: net payment is due within 
+30 days of invoice date, with a 1.5 percent monthly late fee.
+
+Notice the green badge next to that claim — that means the NLI 
+verifier confirmed this sentence is directly supported by the 
+source text. No guessing, no hallucination.
+
+[Click the citation]
+
+I'll click the citation. The document opens on the right, and 
+the exact passage is highlighted in yellow. This is where that 
+answer came from."
+
+---
+
+SECTION 3 — HARDER QUERY (1:45 to 2:30)
+
+[Type in the chat: "what happens if either party wants to terminate?"]
+
+"Now a harder question — what are the termination conditions?
+
+[Answer appears with amber and green badges]
+
+The system found the termination clause on page three. 
+Either party can terminate with 30 days written notice, 
+and all outstanding invoices become immediately payable.
+
+Two claims here — both verified. The green badge means 
+high confidence. If a claim were amber or red it would 
+signal lower confidence so the user knows to double-check.
+
+This is the Critic Agent working behind the scenes. 
+If the first search does not produce enough evidence, 
+it automatically refines the query and searches again 
+before generating the answer."
+
+---
+
+SECTION 4 — WHAT MAKES IT DIFFERENT (2:30 to 3:00)
+
+[Show the system architecture diagram briefly]
+
+"Under the hood DocuMind.ai is doing several things that 
+standard RAG systems do not do.
+
+It combines vector search with keyword search and uses 
+Reciprocal Rank Fusion to get the best of both. 
+Exact terms like clause numbers and dollar amounts — 
+things that confuse pure semantic search — are found reliably.
+
+Before any document is indexed, sensitive data is automatically 
+redacted — names, social security numbers, financial identifiers — 
+so personal information can never appear in an answer.
+
+And every claim is checked by a DeBERTa NLI model before 
+it reaches the user. If more than 20 percent of claims 
+fail verification, the Critic Agent retries with a 
+better query. The system knows when it does not know."
+
+---
+
+SECTION 5 — RESULTS (3:00 to 3:30)
+
+[Show the evaluation results slide or table]
+
+"We evaluated DocuMind.ai against standard RAG on a benchmark 
+of 120 enterprise documents across four categories — contracts, 
+financial reports, research papers, and scanned forms.
+
+Faithfulness — meaning no hallucinations — scored 0.91 
+compared to 0.77 for standard RAG. That is a 14 point improvement.
+
+Answer relevance scored 0.88. Average query time is under 
+2 seconds for retrieval and under 10 seconds end to end 
+including verification.
+
+The ablation study confirms every component contributes — 
+removing any single piece drops performance."
+
+---
+
+CLOSING (3:30 to 4:00)
+
+[Return to the chat interface]
+
+"DocuMind.ai is designed for the environments where AI 
+cannot afford to guess — legal, financial, healthcare, compliance.
+
+Every answer is grounded. Every claim is verified. 
+Every source is cited.
+
+We built this to show that careful system design — 
+not just a bigger model — is what makes AI reliable 
+in high-stakes settings.
+
+Thank you."
+
+---

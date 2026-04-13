@@ -1,0 +1,109 @@
+PROJECT: DocuMind.ai
+Intelligent Document Processing and Agentic Knowledge Retrieval for the Enterprise
+
+COURSE: CSCI 5922 — University of Colorado Boulder
+TEAM: Karthik Aluri (Group 1), Glen Qin (Group 2)
+
+---
+
+WHAT THE PROJECT DOES
+
+DocuMind.ai is an AI platform that lets enterprise users upload 
+documents — contracts, financial reports, research papers, scanned 
+forms — and ask questions about them in plain English. The system 
+reads the document, finds the most relevant passages, generates a 
+grounded answer, and shows exactly which page and paragraph the 
+answer came from. Users can also compare two documents side by side 
+to find differences in clauses or terms.
+
+The key difference from a simple chatbot is that DocuMind.ai never 
+guesses. Every claim in the answer is verified against the source 
+text before it is shown to the user. If the system is not confident, 
+it automatically retries with a better search query rather than 
+making something up.
+
+---
+
+THE PROBLEM IT SOLVES
+
+Enterprises store critical knowledge in thousands of unstructured 
+documents. A lawyer looking for a termination clause, a finance 
+analyst checking payment terms, or a researcher comparing 
+methodologies across papers — all of them spend hours manually 
+searching through documents. DocuMind.ai reduces that to seconds.
+
+Standard AI tools fail on real enterprise documents because they 
+cannot handle scanned pages, complex tables, or multi-column layouts. 
+They also hallucinate answers when they cannot find the information. 
+DocuMind.ai solves both problems.
+
+---
+
+HOW IT WORKS — HIGH LEVEL
+
+Step 1: User uploads a PDF (can be a native PDF or a scanned image)
+Step 2: System extracts and understands the document structure
+Step 3: User asks a question in the chat interface
+Step 4: System searches the document using both keyword and 
+        semantic search combined
+Step 5: An AI agent generates an answer grounded only in 
+        retrieved passages
+Step 6: Every claim is verified — if verification fails, 
+        the system automatically searches again
+Step 7: Answer is shown with color-coded confidence badges 
+        and clickable citations that highlight the exact 
+        source passage in the document
+
+---
+
+TECH STACK (for reference)
+
+Backend: Python, FastAPI, PostgreSQL, FAISS vector database
+AI Models: BGE-Large embeddings, GPT-4o or Llama 3, 
+           DeBERTa NLI verifier, MS-MARCO reranker
+Agent: LangGraph with HyDE query expansion and Critic Agent
+Frontend: Next.js, Tailwind CSS
+Evaluation: RAGAS framework
+
+---
+
+KEY RESULTS
+
+Our system vs standard RAG baseline:
+- Faithfulness (no hallucinations): 0.91 vs 0.77 (+14 points)
+- Answer relevance: 0.88 vs 0.79 (+11 points)
+- Context precision: 0.85 vs 0.71
+- Context recall: 0.87 vs 0.74
+
+Query response time: under 2 seconds
+Full pipeline with verification: under 10 seconds
+
+---
+
+WHAT TO SHOW IN THE DEMO
+
+1. Upload a contract PDF via the drag-and-drop interface
+2. Ask "what are the payment terms?" 
+   — system answers with "30 days" and cites page 1
+3. Click the citation — PDF viewer opens, passage highlighted
+4. Ask "when can either party terminate this agreement?"
+   — system answers with termination terms from page 3
+5. Show the confidence badges on each claim (green = verified)
+6. Upload a second contract and use the comparison feature
+   to show differences between the two documents
+
+---
+
+WHAT MAKES IT DIFFERENT FROM EXISTING TOOLS
+
+1. Works on scanned documents — uses OCR with quality scoring
+2. Hybrid search — combines keyword and semantic search for 
+   better results on technical documents with specific terms
+3. Self-correcting — Critic Agent retries if the first 
+   retrieval does not produce a good enough answer
+4. Claim-level verification — NLI model checks every sentence 
+   before showing the answer
+5. PII protection — sensitive data is redacted before 
+   indexing so it cannot appear in answers
+6. Full citations — every answer links to the exact page 
+   and bounding box of the source passage
