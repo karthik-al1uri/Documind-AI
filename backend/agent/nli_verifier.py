@@ -16,7 +16,7 @@ from models.schemas import Claim
 
 logger = logging.getLogger(__name__)
 
-NLI_MODEL = os.getenv("NLI_MODEL", "cross-encoder/nli-deberta-v3-large")
+NLI_MODEL = os.getenv("NLI_MODEL", "cross-encoder/nli-deberta-v3-base")
 ENTAILMENT_THRESHOLD = 0.2
 
 _tokenizer = None
@@ -27,18 +27,23 @@ def _load_model():
     """Lazily load the NLI model and tokenizer.
 
     Returns:
-        Tuple of (tokenizer, model).
+        Tuple of (tokenizer, model) or (None, None) on failure.
     """
     global _tokenizer, _model
     if _tokenizer is None:
-        cache_dir = os.getenv("HF_CACHE_DIR", "./models")
-        logger.info("Loading NLI model: %s", NLI_MODEL)
-        _tokenizer = AutoTokenizer.from_pretrained(NLI_MODEL, cache_dir=cache_dir)
-        _model = AutoModelForSequenceClassification.from_pretrained(
-            NLI_MODEL, cache_dir=cache_dir
-        )
-        _model.eval()
-        logger.info("NLI model loaded successfully")
+        try:
+            cache_dir = os.getenv("HF_CACHE_DIR", "./models")
+            logger.info("Loading NLI model: %s", NLI_MODEL)
+            _tokenizer = AutoTokenizer.from_pretrained(NLI_MODEL, cache_dir=cache_dir)
+            _model = AutoModelForSequenceClassification.from_pretrained(
+                NLI_MODEL, cache_dir=cache_dir, torch_dtype=torch.float32
+            )
+            _model.eval()
+            logger.info("NLI model loaded successfully")
+        except Exception as exc:
+            logger.error("Failed to load NLI model: %s — NLI verification will be skipped", exc)
+            _tokenizer = None
+            _model = None
     return _tokenizer, _model
 
 

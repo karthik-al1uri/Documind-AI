@@ -21,7 +21,7 @@ from ingestion.upload_service import save_upload, create_document_record
 from ingestion.pdf_parser import parse_pdf, is_scanned_pdf
 from ingestion.ocr_processor import ocr_pdf, ocr_image
 from ingestion.layout_service import build_page_json
-from processing.pii_redactor import redact_pii
+# from processing.pii_redactor import redact_pii  # Temporarily disabled
 from processing.language_detector import detect_document_language
 from processing.field_extractor import run_field_extraction
 from processing.chunker import chunk_document
@@ -105,27 +105,27 @@ async def run_ingestion_pipeline(
             # Concatenate raw text from all elements
             raw_text = "\n".join(elem.text for elem in page_json.elements if elem.text.strip())
 
-            # Step 8 — PII redaction
-            redacted_text, redactions = redact_pii(raw_text)
-            if redactions:
-                logger.info(
-                    "Page %d: redacted %d PII entities", page_number, len(redactions)
-                )
+            # Step 8 — PII redaction (temporarily disabled)
+            # redacted_text, redactions = redact_pii(raw_text)
+            # if redactions:
+            #     logger.info(
+            #         "Page %d: redacted %d PII entities", page_number, len(redactions)
+            #     )
 
             # Also redact element texts in the PageJSON
-            redacted_elements = []
-            for elem in page_json.elements:
-                elem_redacted, _ = redact_pii(elem.text)
-                redacted_elements.append(elem.model_copy(update={"text": elem_redacted}))
-            page_json = page_json.model_copy(update={"elements": redacted_elements})
+            # redacted_elements = []
+            # for elem in page_json.elements:
+            #     elem_redacted, _ = redact_pii(elem.text)
+            #     redacted_elements.append(elem.model_copy(update={"text": elem_redacted}))
+            # page_json = page_json.model_copy(update={"elements": redacted_elements})
 
-            all_raw_texts[page_number] = redacted_text
+            all_raw_texts[page_number] = raw_text  # Use raw text instead of redacted
 
             # Create page record
             page_record = Page(
                 document_id=doc.id,
                 page_number=page_number,
-                raw_text=redacted_text,
+                raw_text=raw_text,  # Use raw text instead of redacted_text
                 confidence_score=confidence_score,
                 needs_review=needs_review,
                 page_json=page_json.model_dump(),

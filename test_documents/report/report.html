@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DocuMind AI — Evaluation Report</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  *{box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+       max-width:1200px;margin:0 auto;padding:24px;background:#f4f5f7;color:#1a1a2e}
+  .hdr{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:32px;
+       border-radius:12px;margin-bottom:24px}
+  .hdr h1{margin:0;font-size:1.9em}
+  .hdr p{margin:6px 0 0;opacity:.88;font-size:.95em}
+  .grid{display:grid;gap:16px;margin-bottom:24px}
+  .grid-6{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+  .grid-2{grid-template-columns:1fr 1fr}
+  @media(max-width:768px){.grid-2{grid-template-columns:1fr}}
+  .card{background:#fff;border-radius:10px;padding:20px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+  .card .val{font-size:1.9em;font-weight:700;color:#667eea}
+  .card .lbl{color:#666;font-size:.85em;margin-top:4px}
+  h2{margin:0 0 14px;color:#222;border-bottom:2px solid #667eea;padding-bottom:8px;font-size:1.15em}
+  table{width:100%;border-collapse:collapse;font-size:.88em}
+  th,td{padding:10px 12px;text-align:left;border-bottom:1px solid #eee}
+  th{background:#f8f9fa;font-weight:600;color:#555}
+  tr:hover{background:#f8f9fb}
+  .ok{color:#28a745} .fail{color:#dc3545}
+  .chart-box{position:relative;height:300px}
+  .ai-out{font-style:italic;color:#444;font-size:.86em;max-width:400px}
+  .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.78em;font-weight:600}
+  .badge-inv{background:#e8f5e9;color:#2e7d32}
+  .badge-con{background:#e3f2fd;color:#1565c0}
+  .badge-rep{background:#fff3e0;color:#e65100}
+  .badge-leg{background:#fce4ec;color:#c62828}
+  .badge-tax{background:#f3e5f5;color:#6a1b9a}
+  .badge-med{background:#e0f7fa;color:#00695c}
+  .badge-emp{background:#ede7f6;color:#4527a0}
+  .badge-nda{background:#e8eaf6;color:#283593}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <h1>DocuMind AI — Evaluation Report</h1>
+  <p>40 documents processed &middot; 100.0% success rate &middot; 104 pages &middot; 744 chunks</p>
+  <p>Generated April 25, 2026 at 06:35 PM</p>
+</div>
+
+<!-- KPI cards -->
+<div class="grid grid-6">
+  <div class="card"><div class="val">40</div><div class="lbl">Documents Tested</div></div>
+  <div class="card"><div class="val">100.0%</div><div class="lbl">Success Rate</div></div>
+  <div class="card"><div class="val">104</div><div class="lbl">Pages Processed</div></div>
+  <div class="card"><div class="val">744</div><div class="lbl">Chunks Indexed</div></div>
+  <div class="card"><div class="val">0.93s</div><div class="lbl">Avg Processing Time</div></div>
+  <div class="card"><div class="val">0.87 MB</div><div class="lbl">Data Processed</div></div>
+</div>
+
+<!-- Charts -->
+<div class="grid grid-2">
+  <div class="card"><h2>Document Type Distribution</h2><div class="chart-box"><canvas id="cPie"></canvas></div></div>
+  <div class="card"><h2>Processing Time Distribution</h2><div class="chart-box"><canvas id="cBar"></canvas></div></div>
+</div>
+
+<!-- Chunks per document -->
+<div class="card" style="margin-bottom:24px">
+  <h2>Chunks Indexed per Document</h2>
+  <div style="position:relative;height:320px"><canvas id="cChunks"></canvas></div>
+</div>
+
+<!-- Per-type stats -->
+<div class="card" style="margin-bottom:24px">
+<h2>Per-Document-Type Performance</h2>
+<table>
+<thead><tr><th>Document Type</th><th>Count</th><th>Avg Time (s)</th><th>Avg Pages</th><th>Avg Chunks</th><th>Chunks / Page</th></tr></thead>
+<tbody>
+<tr><td><strong>Contract</strong></td><td>17</td><td>0.98</td><td>2.5</td><td>16.9</td><td>6.8</td></tr>
+<tr><td><strong>Invoice</strong></td><td>10</td><td>0.20</td><td>1.1</td><td>9.7</td><td>8.8</td></tr>
+<tr><td><strong>Report</strong></td><td>8</td><td>1.55</td><td>4.2</td><td>30.1</td><td>7.1</td></tr>
+<tr><td><strong>Tax</strong></td><td>2</td><td>0.20</td><td>1.0</td><td>7.0</td><td>7.0</td></tr>
+<tr><td><strong>Legal</strong></td><td>2</td><td>2.57</td><td>6.5</td><td>45.0</td><td>6.9</td></tr>
+<tr><td><strong>Medical</strong></td><td>1</td><td>0.72</td><td>2.0</td><td>15.0</td><td>7.5</td></tr>
+</tbody></table></div>
+
+<!-- AI Review table -->
+<div class="card" style="margin-bottom:24px">
+<h2>AI Retrieval Review — LLM Output Samples</h2>
+<p style="color:#666;font-size:.88em;margin-bottom:12px">Each document was queried with a targeted question. The table shows the top retrieved passage that the LLM uses to generate an answer.</p>
+<table>
+<thead><tr><th>Document</th><th>Type</th><th>Query</th><th>AI Retrieved Output</th><th>Score</th></tr></thead>
+<tbody>
+<tr><td>test_nda_03.pdf</td><td><span class="badge badge-nda">nda</span></td><td>What are the confidentiality obligations and term?</td><td class="ai-out">by either party. Obligations of Receiving Party: The Receiving Party agrees to hold all Confidential Information in strict confidence and not disclose to any third parties.</td><td>1.64</td></tr>
+<tr><td>test_invoice_08.pdf</td><td><span class="badge badge-inv">invoice</span></td><td>What is the total amount due and payment terms?</td><td class="ai-out">00 Total Due: $15,000.00</td><td>4.61</td></tr>
+<tr><td>test_financial_05.pdf</td><td><span class="badge badge-rep">financial</span></td><td>What was the total revenue and growth rate?</td><td class="ai-out">026 Executive Summary: Q3 2023 showed strong revenue growth of 35% compared to the previous year.</td><td>2.51</td></tr>
+<tr><td>test_employment_03.pdf</td><td><span class="badge badge-emp">employment</span></td><td>What is the salary and benefits package?</td><td class="ai-out">25, 2024 Compensation: Annual Salary: $120,000 Pay Frequency: Bi-weekly</td><td>-6.73</td></tr>
+<tr><td>test_contract_06.pdf</td><td><span class="badge badge-con">contract</span></td><td>What is the termination clause and governing law?</td><td class="ai-out">otice. Governing Law: This Agreement shall be governed by the laws of Texas.</td><td>-1.84</td></tr>
+</tbody></table></div>
+
+<!-- Detailed results -->
+<div class="card" style="margin-bottom:24px">
+<h2>Detailed Results — All Documents</h2>
+<table>
+<thead><tr><th>#</th><th>Filename</th><th>Type</th><th>Status</th><th>Time (s)</th><th>Pages</th><th>Chunks</th><th>Size (KB)</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>test_contract_01.pdf</td><td>contract</td><td class="ok">✅ completed</td><td>4.15</td><td>1</td><td>7</td><td>2.0</td></tr>
+<tr><td>2</td><td>test_contract_02.pdf</td><td>contract</td><td class="ok">✅ completed</td><td>0.19</td><td>1</td><td>7</td><td>2.0</td></tr>
+<tr><td>3</td><td>test_contract_03.pdf</td><td>contract</td><td class="ok">✅ completed</td><td>0.13</td><td>1</td><td>7</td><td>2.0</td></tr>
+<tr><td>4</td><td>test_contract_04.pdf</td><td>contract</td><td class="ok">✅ completed</td><td>0.11</td><td>1</td><td>7</td><td>2.0</td></tr>
+<tr><td>5</td><td>test_contract_05.pdf</td><td>contract</td><td class="ok">✅ completed</td><td>0.14</td><td>1</td><td>7</td><td>2.0</td></tr>
+<tr><td>6</td><td>test_contract_06.pdf</td><td>contract</td><td class="ok">✅ completed</td><td>0.11</td><td>1</td><td>7</td><td>2.0</td></tr>
+<tr><td>7</td><td>test_employment_01.pdf</td><td>contract</td><td class="ok">✅ completed</td><td>0.16</td><td>1</td><td>6</td><td>1.9</td></tr>
+<tr><td>8</td><td>test_employment_02.pdf</td><td>contract</td><td class="ok">✅ completed</td><td>0.08</td><td>1</td><td>6</td><td>1.9</td></tr>
+<tr><td>9</td><td>test_employment_03.pdf</td><td>contract</td><td class="ok">✅ completed</td><td>0.10</td><td>1</td><td>6</td><td>1.9</td></tr>
+<tr><td>10</td><td>test_financial_01.pdf</td><td>report</td><td class="ok">✅ completed</td><td>0.16</td><td>1</td><td>7</td><td>1.9</td></tr>
+<tr><td>11</td><td>test_financial_02.pdf</td><td>report</td><td class="ok">✅ completed</td><td>0.18</td><td>1</td><td>7</td><td>1.9</td></tr>
+<tr><td>12</td><td>test_financial_03.pdf</td><td>report</td><td class="ok">✅ completed</td><td>0.15</td><td>1</td><td>7</td><td>1.9</td></tr>
+<tr><td>13</td><td>test_financial_04.pdf</td><td>report</td><td class="ok">✅ completed</td><td>0.18</td><td>1</td><td>7</td><td>1.9</td></tr>
+<tr><td>14</td><td>test_financial_05.pdf</td><td>report</td><td class="ok">✅ completed</td><td>0.16</td><td>1</td><td>7</td><td>1.9</td></tr>
+<tr><td>15</td><td>test_invoice_01.pdf</td><td>invoice</td><td class="ok">✅ completed</td><td>0.15</td><td>1</td><td>9</td><td>1.9</td></tr>
+<tr><td>16</td><td>test_invoice_02.pdf</td><td>invoice</td><td class="ok">✅ completed</td><td>0.14</td><td>1</td><td>9</td><td>1.9</td></tr>
+<tr><td>17</td><td>test_invoice_03.pdf</td><td>invoice</td><td class="ok">✅ completed</td><td>0.13</td><td>1</td><td>9</td><td>1.9</td></tr>
+<tr><td>18</td><td>test_invoice_04.pdf</td><td>invoice</td><td class="ok">✅ completed</td><td>0.14</td><td>1</td><td>9</td><td>1.9</td></tr>
+<tr><td>19</td><td>test_invoice_05.pdf</td><td>invoice</td><td class="ok">✅ completed</td><td>0.14</td><td>1</td><td>9</td><td>1.9</td></tr>
+<tr><td>20</td><td>test_invoice_06.pdf</td><td>invoice</td><td class="ok">✅ completed</td><td>0.12</td><td>1</td><td>9</td><td>1.9</td></tr>
+<tr><td>21</td><td>test_invoice_07.pdf</td><td>invoice</td><td class="ok">✅ completed</td><td>0.14</td><td>1</td><td>9</td><td>1.9</td></tr>
+<tr><td>22</td><td>test_invoice_08.pdf</td><td>invoice</td><td class="ok">✅ completed</td><td>0.13</td><td>1</td><td>9</td><td>1.9</td></tr>
+<tr><td>23</td><td>test_nda_01.pdf</td><td>contract</td><td class="ok">✅ completed</td><td>0.23</td><td>1</td><td>5</td><td>1.9</td></tr>
+<tr><td>24</td><td>test_nda_02.pdf</td><td>contract</td><td class="ok">✅ completed</td><td>0.10</td><td>1</td><td>5</td><td>1.9</td></tr>
+<tr><td>25</td><td>test_nda_03.pdf</td><td>contract</td><td class="ok">✅ completed</td><td>0.09</td><td>1</td><td>5</td><td>1.9</td></tr>
+<tr><td>26</td><td>commercial_lease_2024.pdf</td><td>contract</td><td class="ok">✅ completed</td><td>1.42</td><td>4</td><td>28</td><td>38.5</td></tr>
+<tr><td>27</td><td>residential_lease_apt12B.pdf</td><td>contract</td><td class="ok">✅ completed</td><td>0.98</td><td>3</td><td>22</td><td>26.1</td></tr>
+<tr><td>28</td><td>PO_2024_00457.pdf</td><td>invoice</td><td class="ok">✅ completed</td><td>0.65</td><td>2</td><td>14</td><td>15.2</td></tr>
+<tr><td>29</td><td>PO_vendor_globaltech.pdf</td><td>invoice</td><td class="ok">✅ completed</td><td>0.31</td><td>1</td><td>11</td><td>8.7</td></tr>
+<tr><td>30</td><td>annual_report_2023.pdf</td><td>report</td><td class="ok">✅ completed</td><td>4.87</td><td>12</td><td>86</td><td>145.3</td></tr>
+<tr><td>31</td><td>patient_intake_form.pdf</td><td>medical</td><td class="ok">✅ completed</td><td>0.72</td><td>2</td><td>15</td><td>12.4</td></tr>
+<tr><td>32</td><td>W2_form_2024.pdf</td><td>tax</td><td class="ok">✅ completed</td><td>0.22</td><td>1</td><td>8</td><td>5.8</td></tr>
+<tr><td>33</td><td>1099_contractor_payments.pdf</td><td>tax</td><td class="ok">✅ completed</td><td>0.18</td><td>1</td><td>6</td><td>4.1</td></tr>
+<tr><td>34</td><td>insurance_policy_renewal.pdf</td><td>contract</td><td class="ok">✅ completed</td><td>2.15</td><td>6</td><td>42</td><td>58.2</td></tr>
+<tr><td>35</td><td>contrato_servicios_ES.pdf</td><td>contract</td><td class="ok">✅ completed</td><td>0.88</td><td>2</td><td>16</td><td>14.6</td></tr>
+<tr><td>36</td><td>patent_application_draft.pdf</td><td>legal</td><td class="ok">✅ completed</td><td>3.21</td><td>8</td><td>55</td><td>92.1</td></tr>
+<tr><td>37</td><td>court_filing_motion.pdf</td><td>legal</td><td class="ok">✅ completed</td><td>1.93</td><td>5</td><td>35</td><td>48.7</td></tr>
+<tr><td>38</td><td>API_specification_v2.pdf</td><td>report</td><td class="ok">✅ completed</td><td>3.95</td><td>10</td><td>72</td><td>118.4</td></tr>
+<tr><td>39</td><td>employee_handbook_2025.pdf</td><td>contract</td><td class="ok">✅ completed</td><td>5.62</td><td>15</td><td>104</td><td>186.7</td></tr>
+<tr><td>40</td><td>market_analysis_Q1.pdf</td><td>report</td><td class="ok">✅ completed</td><td>2.78</td><td>7</td><td>48</td><td>72.9</td></tr>
+</tbody></table></div>
+
+<script>
+new Chart(document.getElementById('cPie'),{
+  type:'doughnut',
+  data:{labels:["contract", "invoice", "report", "tax", "legal", "medical"],datasets:[{data:[17, 10, 8, 2, 2, 1],
+    backgroundColor:['#667eea','#764ba2','#f093fb','#43e97b','#f5576c','#4facfe','#00f2fe','#fa709a']}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right'}}}
+});
+
+new Chart(document.getElementById('cBar'),{
+  type:'bar',
+  data:{labels:["0\u20131 s", "1\u20132 s", "2\u20134 s", "4+ s"],datasets:[{label:'Number of Documents',data:[31, 2, 4, 3],
+    backgroundColor:['#43e97b','#667eea','#f093fb','#f5576c']}]},
+  options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true,ticks:{stepSize:1}}}}
+});
+
+new Chart(document.getElementById('cChunks'),{
+  type:'bar',
+  data:{labels:["test_contract_01.pdf", "test_contract_02.pdf", "test_contract_03.pdf", "test_contract_04.pdf", "test_contract_05.pdf", "test_contract_06.pdf", "test_employment_01.pdf", "test_employment_02.pdf", "test_employment_03.pdf", "test_financial_01.pdf", "test_financial_02.pdf", "test_financial_03.pdf", "test_financial_04.pdf", "test_financial_05.pdf", "test_invoice_01.pdf", "test_invoice_02.pdf", "test_invoice_03.pdf", "test_invoice_04.pdf", "test_invoice_05.pdf", "test_invoice_06.pdf", "test_invoice_07.pdf", "test_invoice_08.pdf", "test_nda_01.pdf", "test_nda_02.pdf", "test_nda_03.pdf", "commercial_lease_2024.", "residential_lease_apt1", "PO_2024_00457.pdf", "PO_vendor_globaltech.p", "annual_report_2023.pdf", "patient_intake_form.pd", "W2_form_2024.pdf", "1099_contractor_paymen", "insurance_policy_renew", "contrato_servicios_ES.", "patent_application_dra", "court_filing_motion.pd", "API_specification_v2.p", "employee_handbook_2025", "market_analysis_Q1.pdf"],
+    datasets:[
+      {label:'Chunks',data:[7, 7, 7, 7, 7, 7, 6, 6, 6, 7, 7, 7, 7, 7, 9, 9, 9, 9, 9, 9, 9, 9, 5, 5, 5, 28, 22, 14, 11, 86, 15, 8, 6, 42, 16, 55, 35, 72, 104, 48],backgroundColor:'#667eea'},
+      {label:'Pages',data:[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 3, 2, 1, 12, 2, 1, 1, 6, 2, 8, 5, 10, 15, 7],backgroundColor:'#f093fb'}
+    ]},
+  options:{responsive:true,maintainAspectRatio:false,
+    scales:{x:{ticks:{maxRotation:90,minRotation:45,font:{size:9}}},y:{beginAtZero:true}},
+    plugins:{legend:{position:'top'}}}
+});
+</script>
+</body></html>

@@ -1,0 +1,215 @@
+[
+  {
+    "filename": "test_invoice_01.pdf",
+    "type": "invoice",
+    "amount": 15000,
+    "company": "Global Dynamics",
+    "date": "March 18, 2024"
+  },
+  {
+    "filename": "test_invoice_02.pdf",
+    "type": "invoice",
+    "amount": 5000,
+    "company": "Acme Corporation",
+    "date": "December 02, 2024"
+  },
+  {
+    "filename": "test_invoice_03.pdf",
+    "type": "invoice",
+    "amount": 25000,
+    "company": "Metro Industries",
+    "date": "November 27, 2024"
+  },
+  {
+    "filename": "test_invoice_04.pdf",
+    "type": "invoice",
+    "amount": 35000,
+    "company": "Enterprise Co",
+    "date": "February 18, 2024"
+  },
+  {
+    "filename": "test_invoice_05.pdf",
+    "type": "invoice",
+    "amount": 35000,
+    "company": "Enterprise Co",
+    "date": "August 20, 2024"
+  },
+  {
+    "filename": "test_invoice_06.pdf",
+    "type": "invoice",
+    "amount": 50000,
+    "company": "Global Dynamics",
+    "date": "February 10, 2024"
+  },
+  {
+    "filename": "test_invoice_07.pdf",
+    "type": "invoice",
+    "amount": 25000,
+    "company": "Acme Corporation",
+    "date": "February 12, 2024"
+  },
+  {
+    "filename": "test_invoice_08.pdf",
+    "type": "invoice",
+    "amount": 15000,
+    "company": "Strategic Partners",
+    "date": "November 01, 2024"
+  },
+  {
+    "filename": "test_contract_01.pdf",
+    "type": "contract",
+    "parties": [
+      "Acme Corporation",
+      "Tech Solutions Inc."
+    ],
+    "start_date": "June 25, 2024",
+    "duration_months": 24,
+    "governing_law": "Illinois"
+  },
+  {
+    "filename": "test_contract_02.pdf",
+    "type": "contract",
+    "parties": [
+      "Global Dynamics",
+      "Innovation Labs LLC"
+    ],
+    "start_date": "October 04, 2024",
+    "duration_months": 36,
+    "governing_law": "Texas"
+  },
+  {
+    "filename": "test_contract_03.pdf",
+    "type": "contract",
+    "parties": [
+      "Acme Corporation",
+      "Tech Solutions Inc."
+    ],
+    "start_date": "May 15, 2024",
+    "duration_months": 24,
+    "governing_law": "New York"
+  },
+  {
+    "filename": "test_contract_04.pdf",
+    "type": "contract",
+    "parties": [
+      "Acme Corporation",
+      "Tech Solutions Inc."
+    ],
+    "start_date": "April 29, 2024",
+    "duration_months": 12,
+    "governing_law": "Delaware"
+  },
+  {
+    "filename": "test_contract_05.pdf",
+    "type": "contract",
+    "parties": [
+      "Enterprise Co",
+      "CloudFirst Technologies"
+    ],
+    "start_date": "February 12, 2024",
+    "duration_months": 24,
+    "governing_law": "Delaware"
+  },
+  {
+    "filename": "test_contract_06.pdf",
+    "type": "contract",
+    "parties": [
+      "Global Dynamics",
+      "Innovation Labs LLC"
+    ],
+    "start_date": "April 12, 2024",
+    "duration_months": 12,
+    "governing_law": "Texas"
+  },
+  {
+    "filename": "test_financial_01.pdf",
+    "type": "financial_report",
+    "quarter": "Q2",
+    "year": 2024,
+    "revenue": 5000000,
+    "growth_pct": 10
+  },
+  {
+    "filename": "test_financial_02.pdf",
+    "type": "financial_report",
+    "quarter": "Q1",
+    "year": 2023,
+    "revenue": 5000000,
+    "growth_pct": -5
+  },
+  {
+    "filename": "test_financial_03.pdf",
+    "type": "financial_report",
+    "quarter": "Q1",
+    "year": 2024,
+    "revenue": 10000000,
+    "growth_pct": 35
+  },
+  {
+    "filename": "test_financial_04.pdf",
+    "type": "financial_report",
+    "quarter": "Q4",
+    "year": 2024,
+    "revenue": 2000000,
+    "growth_pct": 35
+  },
+  {
+    "filename": "test_financial_05.pdf",
+    "type": "financial_report",
+    "quarter": "Q3",
+    "year": 2023,
+    "revenue": 500000,
+    "growth_pct": 35
+  },
+  {
+    "filename": "test_nda_01.pdf",
+    "type": "nda",
+    "parties": [
+      "Strategic Partners",
+      "DataFlow Systems"
+    ],
+    "effective_date": "June 02, 2024"
+  },
+  {
+    "filename": "test_nda_02.pdf",
+    "type": "nda",
+    "parties": [
+      "Metro Industries",
+      "Smart Analytics Corp"
+    ],
+    "effective_date": "August 09, 2024"
+  },
+  {
+    "filename": "test_nda_03.pdf",
+    "type": "nda",
+    "parties": [
+      "Global Dynamics",
+      "Innovation Labs LLC"
+    ],
+    "effective_date": "September 17, 2024"
+  },
+  {
+    "filename": "test_employment_01.pdf",
+    "type": "employment_contract",
+    "employee": "Robert Wilson",
+    "position": "UX Designer",
+    "salary": 100000,
+    "start_date": "January 06, 2024"
+  },
+  {
+    "filename": "test_employment_02.pdf",
+    "type": "employment_contract",
+    "employee": "John Smith",
+    "position": "Sales Director",
+    "salary": 60000,
+    "start_date": "January 13, 2024"
+  },
+  {
+    "filename": "test_employment_03.pdf",
+    "type": "employment_contract",
+    "employee": "Michael Chen",
+    "position": "Product Manager",
+    "salary": 120000,
+    "start_date": "June 25, 2024"
+  }
+]

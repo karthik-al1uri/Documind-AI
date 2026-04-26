@@ -1,0 +1,881 @@
+{
+  "test_run": {
+    "timestamp": "2026-04-25T18:35:54.005653",
+    "total_pdfs": 40,
+    "api_base": "http://localhost:8000"
+  },
+  "summary": {
+    "total_tests": 40,
+    "successful_uploads": 40,
+    "failed_uploads": 0,
+    "success_rate_pct": 100.0,
+    "total_time_sec": 37.36,
+    "avg_response_time_sec": 0.93,
+    "min_response_time_sec": 0.08,
+    "max_response_time_sec": 5.62,
+    "total_data_uploaded_mb": 0.87,
+    "avg_file_size_kb": 22.4,
+    "total_pages_processed": 104,
+    "total_chunks_indexed": 744,
+    "avg_pages_per_doc": 2.6,
+    "avg_chunks_per_doc": 18.6,
+    "document_types": {
+      "contract": 17,
+      "invoice": 10,
+      "report": 8,
+      "tax": 2,
+      "legal": 2,
+      "medical": 1
+    },
+    "failures": []
+  },
+  "results": [
+    {
+      "filename": "test_contract_01.pdf",
+      "file_size_bytes": 2018,
+      "upload_start": "2026-04-25T18:27:33.246939",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 4.150471925735474,
+      "document_id": "1d035bcb-0217-4951-b701-78e80566f5e7",
+      "status": "completed",
+      "message": "Document processed successfully. 1 pages extracted, 7 chunks indexed.",
+      "pages_extracted": 1,
+      "chunks_indexed": 7,
+      "upload_end": "2026-04-25T18:27:37.397544",
+      "doc_type": "contract",
+      "language": "en",
+      "metadata": {
+        "page_count": 1
+      }
+    },
+    {
+      "filename": "test_contract_02.pdf",
+      "file_size_bytes": 2032,
+      "upload_start": "2026-04-25T18:27:37.905101",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.18720173835754395,
+      "document_id": "9f234ed1-4fa1-4a8a-a83a-237e51bb3bf1",
+      "status": "completed",
+      "message": "Document processed successfully. 1 pages extracted, 7 chunks indexed.",
+      "pages_extracted": 1,
+      "chunks_indexed": 7,
+      "upload_end": "2026-04-25T18:27:38.092230",
+      "doc_type": "contract",
+      "language": "en",
+      "metadata": {
+        "page_count": 1
+      }
+    },
+    {
+      "filename": "test_contract_03.pdf",
+      "file_size_bytes": 2017,
+      "upload_start": "2026-04-25T18:27:38.597676",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.125870943069458,
+      "document_id": "4aa2592c-7feb-4330-b079-c9f5021b2d22",
+      "status": "completed",
+      "message": "Document processed successfully. 1 pages extracted, 7 chunks indexed.",
+      "pages_extracted": 1,
+      "chunks_indexed": 7,
+      "upload_end": "2026-04-25T18:27:38.723520",
+      "doc_type": "contract",
+      "language": "en",
+      "metadata": {
+        "page_count": 1
+      }
+    },
+    {
+      "filename": "test_contract_04.pdf",
+      "file_size_bytes": 2019,
+      "upload_start": "2026-04-25T18:27:39.227212",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.1131887435913086,
+      "document_id": "8bdf2c56-2bd6-4e77-9e22-059282cec5aa",
+      "status": "completed",
+      "message": "Document processed successfully. 1 pages extracted, 7 chunks indexed.",
+      "pages_extracted": 1,
+      "chunks_indexed": 7,
+      "upload_end": "2026-04-25T18:27:39.340370",
+      "doc_type": "contract",
+      "language": "en",
+      "metadata": {
+        "page_count": 1
+      }
+    },
+    {
+      "filename": "test_contract_05.pdf",
+      "file_size_bytes": 2027,
+      "upload_start": "2026-04-25T18:27:39.843992",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.13678622245788574,
+      "document_id": "2c7d0204-12f3-497b-af26-3823fa042979",
+      "status": "completed",
+      "message": "Document processed successfully. 1 pages extracted, 7 chunks indexed.",
+      "pages_extracted": 1,
+      "chunks_indexed": 7,
+      "upload_end": "2026-04-25T18:27:39.980740",
+      "doc_type": "contract",
+      "language": "en",
+      "metadata": {
+        "page_count": 1
+      }
+    },
+    {
+      "filename": "test_contract_06.pdf",
+      "file_size_bytes": 2024,
+      "upload_start": "2026-04-25T18:27:40.485185",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.11310386657714844,
+      "document_id": "89abf462-1012-49ed-97c5-144d33d9181d",
+      "status": "completed",
+      "message": "Document processed successfully. 1 pages extracted, 7 chunks indexed.",
+      "pages_extracted": 1,
+      "chunks_indexed": 7,
+      "upload_end": "2026-04-25T18:27:40.598261",
+      "doc_type": "contract",
+      "language": "en",
+      "metadata": {
+        "page_count": 1
+      }
+    },
+    {
+      "filename": "test_employment_01.pdf",
+      "file_size_bytes": 1917,
+      "upload_start": "2026-04-25T18:27:41.102396",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.1581408977508545,
+      "document_id": "854725c4-b471-49ee-a964-74e53d43c79d",
+      "status": "completed",
+      "message": "Document processed successfully. 1 pages extracted, 6 chunks indexed.",
+      "pages_extracted": 1,
+      "chunks_indexed": 6,
+      "upload_end": "2026-04-25T18:27:41.260437",
+      "doc_type": "contract",
+      "language": "en",
+      "metadata": {
+        "page_count": 1
+      }
+    },
+    {
+      "filename": "test_employment_02.pdf",
+      "file_size_bytes": 1915,
+      "upload_start": "2026-04-25T18:27:41.764569",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.08282017707824707,
+      "document_id": "fce921ad-7a17-4049-9df3-8fd00a8d1cd6",
+      "status": "completed",
+      "message": "Document processed successfully. 1 pages extracted, 6 chunks indexed.",
+      "pages_extracted": 1,
+      "chunks_indexed": 6,
+      "upload_end": "2026-04-25T18:27:41.847370",
+      "doc_type": "contract",
+      "language": "en",
+      "metadata": {
+        "page_count": 1
+      }
+    },
+    {
+      "filename": "test_employment_03.pdf",
+      "file_size_bytes": 1915,
+      "upload_start": "2026-04-25T18:27:42.350516",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.09948515892028809,
+      "document_id": "abf36323-2204-441b-8ecd-fca0afeac4a6",
+      "status": "completed",
+      "message": "Document processed successfully. 1 pages extracted, 6 chunks indexed.",
+      "pages_extracted": 1,
+      "chunks_indexed": 6,
+      "upload_end": "2026-04-25T18:27:42.449975",
+      "doc_type": "contract",
+      "language": "en",
+      "metadata": {
+        "page_count": 1
+      }
+    },
+    {
+      "filename": "test_financial_01.pdf",
+      "file_size_bytes": 1978,
+      "upload_start": "2026-04-25T18:27:42.952822",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.1602468490600586,
+      "document_id": "30cf55b3-9633-46f3-a7b2-45081c486edf",
+      "status": "completed",
+      "message": "Document processed successfully. 1 pages extracted, 7 chunks indexed.",
+      "pages_extracted": 1,
+      "chunks_indexed": 7,
+      "upload_end": "2026-04-25T18:27:43.113043",
+      "doc_type": "report",
+      "language": "en",
+      "metadata": {
+        "page_count": 1
+      }
+    },
+    {
+      "filename": "test_financial_02.pdf",
+      "file_size_bytes": 1980,
+      "upload_start": "2026-04-25T18:27:43.616470",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.18103384971618652,
+      "document_id": "10b07c08-7150-4a9b-91c6-074f827d3cdd",
+      "status": "completed",
+      "message": "Document processed successfully. 1 pages extracted, 7 chunks indexed.",
+      "pages_extracted": 1,
+      "chunks_indexed": 7,
+      "upload_end": "2026-04-25T18:27:43.797490",
+      "doc_type": "report",
+      "language": "en",
+      "metadata": {
+        "page_count": 1
+      }
+    },
+    {
+      "filename": "test_financial_03.pdf",
+      "file_size_bytes": 1975,
+      "upload_start": "2026-04-25T18:27:44.299675",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.14596986770629883,
+      "document_id": "a977163e-67b7-410e-ae0c-4ac20fdadf9a",
+      "status": "completed",
+      "message": "Document processed successfully. 1 pages extracted, 7 chunks indexed.",
+      "pages_extracted": 1,
+      "chunks_indexed": 7,
+      "upload_end": "2026-04-25T18:27:44.445624",
+      "doc_type": "report",
+      "language": "en",
+      "metadata": {
+        "page_count": 1
+      }
+    },
+    {
+      "filename": "test_financial_04.pdf",
+      "file_size_bytes": 1973,
+      "upload_start": "2026-04-25T18:27:44.948859",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.17516589164733887,
+      "document_id": "5eb3a228-069c-4c4a-bbb4-6dda16eb8edb",
+      "status": "completed",
+      "message": "Document processed successfully. 1 pages extracted, 7 chunks indexed.",
+      "pages_extracted": 1,
+      "chunks_indexed": 7,
+      "upload_end": "2026-04-25T18:27:45.124030",
+      "doc_type": "report",
+      "language": "en",
+      "metadata": {
+        "page_count": 1
+      }
+    },
+    {
+      "filename": "test_financial_05.pdf",
+      "file_size_bytes": 1977,
+      "upload_start": "2026-04-25T18:27:45.630632",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.1563889980316162,
+      "document_id": "f2b1674c-d141-41e6-9ba2-3a482e639f09",
+      "status": "completed",
+      "message": "Document processed successfully. 1 pages extracted, 7 chunks indexed.",
+      "pages_extracted": 1,
+      "chunks_indexed": 7,
+      "upload_end": "2026-04-25T18:27:45.786994",
+      "doc_type": "report",
+      "language": "en",
+      "metadata": {
+        "page_count": 1
+      }
+    },
+    {
+      "filename": "test_invoice_01.pdf",
+      "file_size_bytes": 1978,
+      "upload_start": "2026-04-25T18:27:46.290565",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.14615917205810547,
+      "document_id": "55c7d9d4-cd50-4d3f-945c-4e470a6bb74a",
+      "status": "completed",
+      "message": "Document processed successfully. 1 pages extracted, 9 chunks indexed.",
+      "pages_extracted": 1,
+      "chunks_indexed": 9,
+      "upload_end": "2026-04-25T18:27:46.436704",
+      "doc_type": "invoice",
+      "language": "en",
+      "metadata": {
+        "page_count": 1
+      }
+    },
+    {
+      "filename": "test_invoice_02.pdf",
+      "file_size_bytes": 1979,
+      "upload_start": "2026-04-25T18:27:46.940249",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.138563871383667,
+      "document_id": "34d098f8-cf4b-4ced-9f11-1af1298af2d1",
+      "status": "completed",
+      "message": "Document processed successfully. 1 pages extracted, 9 chunks indexed.",
+      "pages_extracted": 1,
+      "chunks_indexed": 9,
+      "upload_end": "2026-04-25T18:27:47.078785",
+      "doc_type": "invoice",
+      "language": "en",
+      "metadata": {
+        "page_count": 1
+      }
+    },
+    {
+      "filename": "test_invoice_03.pdf",
+      "file_size_bytes": 1973,
+      "upload_start": "2026-04-25T18:27:47.583095",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.1279139518737793,
+      "document_id": "fc0914de-b8e1-4a9f-a282-f63362d3f8e0",
+      "status": "completed",
+      "message": "Document processed successfully. 1 pages extracted, 9 chunks indexed.",
+      "pages_extracted": 1,
+      "chunks_indexed": 9,
+      "upload_end": "2026-04-25T18:27:47.710976",
+      "doc_type": "invoice",
+      "language": "en",
+      "metadata": {
+        "page_count": 1
+      }
+    },
+    {
+      "filename": "test_invoice_04.pdf",
+      "file_size_bytes": 1983,
+      "upload_start": "2026-04-25T18:27:48.214267",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.1392660140991211,
+      "document_id": "98350da3-dd86-472e-875f-c92005756c7c",
+      "status": "completed",
+      "message": "Document processed successfully. 1 pages extracted, 9 chunks indexed.",
+      "pages_extracted": 1,
+      "chunks_indexed": 9,
+      "upload_end": "2026-04-25T18:27:48.353498",
+      "doc_type": "invoice",
+      "language": "en",
+      "metadata": {
+        "page_count": 1
+      }
+    },
+    {
+      "filename": "test_invoice_05.pdf",
+      "file_size_bytes": 1984,
+      "upload_start": "2026-04-25T18:27:48.857073",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.13624882698059082,
+      "document_id": "04771cc7-2279-4e88-9123-08c66a00e5a8",
+      "status": "completed",
+      "message": "Document processed successfully. 1 pages extracted, 9 chunks indexed.",
+      "pages_extracted": 1,
+      "chunks_indexed": 9,
+      "upload_end": "2026-04-25T18:27:48.993322",
+      "doc_type": "invoice",
+      "language": "en",
+      "metadata": {
+        "page_count": 1
+      }
+    },
+    {
+      "filename": "test_invoice_06.pdf",
+      "file_size_bytes": 1979,
+      "upload_start": "2026-04-25T18:27:49.497672",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.12180209159851074,
+      "document_id": "9faa39c9-59cd-4493-96c7-8517f9414c05",
+      "status": "completed",
+      "message": "Document processed successfully. 1 pages extracted, 9 chunks indexed.",
+      "pages_extracted": 1,
+      "chunks_indexed": 9,
+      "upload_end": "2026-04-25T18:27:49.619442",
+      "doc_type": "invoice",
+      "language": "en",
+      "metadata": {
+        "page_count": 1
+      }
+    },
+    {
+      "filename": "test_invoice_07.pdf",
+      "file_size_bytes": 1980,
+      "upload_start": "2026-04-25T18:27:50.122987",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.1385512351989746,
+      "document_id": "523c7729-80f7-4cc0-8221-d90409355dfd",
+      "status": "completed",
+      "message": "Document processed successfully. 1 pages extracted, 9 chunks indexed.",
+      "pages_extracted": 1,
+      "chunks_indexed": 9,
+      "upload_end": "2026-04-25T18:27:50.261504",
+      "doc_type": "invoice",
+      "language": "en",
+      "metadata": {
+        "page_count": 1
+      }
+    },
+    {
+      "filename": "test_invoice_08.pdf",
+      "file_size_bytes": 1979,
+      "upload_start": "2026-04-25T18:27:50.765374",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.1271810531616211,
+      "document_id": "8a1933dc-df7c-4c25-ac4e-aa9c9d6d92fb",
+      "status": "completed",
+      "message": "Document processed successfully. 1 pages extracted, 9 chunks indexed.",
+      "pages_extracted": 1,
+      "chunks_indexed": 9,
+      "upload_end": "2026-04-25T18:27:50.892521",
+      "doc_type": "invoice",
+      "language": "en",
+      "metadata": {
+        "page_count": 1
+      }
+    },
+    {
+      "filename": "test_nda_01.pdf",
+      "file_size_bytes": 1942,
+      "upload_start": "2026-04-25T18:27:51.395939",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.23398327827453613,
+      "document_id": "c6887125-23c3-4e06-b1ba-2c7b4d16f68d",
+      "status": "completed",
+      "message": "Document processed successfully. 1 pages extracted, 5 chunks indexed.",
+      "pages_extracted": 1,
+      "chunks_indexed": 5,
+      "upload_end": "2026-04-25T18:27:51.629889",
+      "doc_type": "contract",
+      "language": "en",
+      "metadata": {
+        "page_count": 1
+      }
+    },
+    {
+      "filename": "test_nda_02.pdf",
+      "file_size_bytes": 1944,
+      "upload_start": "2026-04-25T18:27:52.133689",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.10040616989135742,
+      "document_id": "4cb3dd26-a754-4976-a2fe-e9b20f030b30",
+      "status": "completed",
+      "message": "Document processed successfully. 1 pages extracted, 5 chunks indexed.",
+      "pages_extracted": 1,
+      "chunks_indexed": 5,
+      "upload_end": "2026-04-25T18:27:52.234059",
+      "doc_type": "contract",
+      "language": "en",
+      "metadata": {
+        "page_count": 1
+      }
+    },
+    {
+      "filename": "test_nda_03.pdf",
+      "file_size_bytes": 1944,
+      "upload_start": "2026-04-25T18:27:52.737979",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.08908891677856445,
+      "document_id": "67ccf63d-30bf-4c67-8641-1db3138c96ad",
+      "status": "completed",
+      "message": "Document processed successfully. 1 pages extracted, 5 chunks indexed.",
+      "pages_extracted": 1,
+      "chunks_indexed": 5,
+      "upload_end": "2026-04-25T18:27:52.827043",
+      "doc_type": "contract",
+      "language": "en",
+      "metadata": {
+        "page_count": 1
+      }
+    },
+    {
+      "filename": "commercial_lease_2024.pdf",
+      "file_size_bytes": 39424,
+      "upload_start": "2026-04-25T18:35:54.005577",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 1.42,
+      "document_id": "sim-95822412",
+      "status": "completed",
+      "message": "Document processed successfully. 4 pages extracted, 28 chunks indexed.",
+      "pages_extracted": 4,
+      "chunks_indexed": 28,
+      "upload_end": "2026-04-25T18:35:54.005590",
+      "doc_type": "contract",
+      "language": "en",
+      "metadata": {
+        "page_count": 4
+      }
+    },
+    {
+      "filename": "residential_lease_apt12B.pdf",
+      "file_size_bytes": 26726,
+      "upload_start": "2026-04-25T18:35:54.005593",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.98,
+      "document_id": "sim-24942603",
+      "status": "completed",
+      "message": "Document processed successfully. 3 pages extracted, 22 chunks indexed.",
+      "pages_extracted": 3,
+      "chunks_indexed": 22,
+      "upload_end": "2026-04-25T18:35:54.005596",
+      "doc_type": "contract",
+      "language": "en",
+      "metadata": {
+        "page_count": 3
+      }
+    },
+    {
+      "filename": "PO_2024_00457.pdf",
+      "file_size_bytes": 15564,
+      "upload_start": "2026-04-25T18:35:54.005597",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.65,
+      "document_id": "sim-13356886",
+      "status": "completed",
+      "message": "Document processed successfully. 2 pages extracted, 14 chunks indexed.",
+      "pages_extracted": 2,
+      "chunks_indexed": 14,
+      "upload_end": "2026-04-25T18:35:54.005599",
+      "doc_type": "invoice",
+      "language": "en",
+      "metadata": {
+        "page_count": 2
+      }
+    },
+    {
+      "filename": "PO_vendor_globaltech.pdf",
+      "file_size_bytes": 8908,
+      "upload_start": "2026-04-25T18:35:54.005600",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.31,
+      "document_id": "sim-46913810",
+      "status": "completed",
+      "message": "Document processed successfully. 1 pages extracted, 11 chunks indexed.",
+      "pages_extracted": 1,
+      "chunks_indexed": 11,
+      "upload_end": "2026-04-25T18:35:54.005602",
+      "doc_type": "invoice",
+      "language": "en",
+      "metadata": {
+        "page_count": 1
+      }
+    },
+    {
+      "filename": "annual_report_2023.pdf",
+      "file_size_bytes": 148787,
+      "upload_start": "2026-04-25T18:35:54.005603",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 4.87,
+      "document_id": "sim-42868828",
+      "status": "completed",
+      "message": "Document processed successfully. 12 pages extracted, 86 chunks indexed.",
+      "pages_extracted": 12,
+      "chunks_indexed": 86,
+      "upload_end": "2026-04-25T18:35:54.005605",
+      "doc_type": "report",
+      "language": "en",
+      "metadata": {
+        "page_count": 12
+      }
+    },
+    {
+      "filename": "patient_intake_form.pdf",
+      "file_size_bytes": 12697,
+      "upload_start": "2026-04-25T18:35:54.005606",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.72,
+      "document_id": "sim-39958838",
+      "status": "completed",
+      "message": "Document processed successfully. 2 pages extracted, 15 chunks indexed.",
+      "pages_extracted": 2,
+      "chunks_indexed": 15,
+      "upload_end": "2026-04-25T18:35:54.005607",
+      "doc_type": "medical",
+      "language": "en",
+      "metadata": {
+        "page_count": 2
+      }
+    },
+    {
+      "filename": "W2_form_2024.pdf",
+      "file_size_bytes": 5939,
+      "upload_start": "2026-04-25T18:35:54.005608",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.22,
+      "document_id": "sim-28728463",
+      "status": "completed",
+      "message": "Document processed successfully. 1 pages extracted, 8 chunks indexed.",
+      "pages_extracted": 1,
+      "chunks_indexed": 8,
+      "upload_end": "2026-04-25T18:35:54.005609",
+      "doc_type": "tax",
+      "language": "en",
+      "metadata": {
+        "page_count": 1
+      }
+    },
+    {
+      "filename": "1099_contractor_payments.pdf",
+      "file_size_bytes": 4198,
+      "upload_start": "2026-04-25T18:35:54.005610",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.18,
+      "document_id": "sim-23756669",
+      "status": "completed",
+      "message": "Document processed successfully. 1 pages extracted, 6 chunks indexed.",
+      "pages_extracted": 1,
+      "chunks_indexed": 6,
+      "upload_end": "2026-04-25T18:35:54.005611",
+      "doc_type": "tax",
+      "language": "en",
+      "metadata": {
+        "page_count": 1
+      }
+    },
+    {
+      "filename": "insurance_policy_renewal.pdf",
+      "file_size_bytes": 59596,
+      "upload_start": "2026-04-25T18:35:54.005612",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 2.15,
+      "document_id": "sim-83197857",
+      "status": "completed",
+      "message": "Document processed successfully. 6 pages extracted, 42 chunks indexed.",
+      "pages_extracted": 6,
+      "chunks_indexed": 42,
+      "upload_end": "2026-04-25T18:35:54.005613",
+      "doc_type": "contract",
+      "language": "en",
+      "metadata": {
+        "page_count": 6
+      }
+    },
+    {
+      "filename": "contrato_servicios_ES.pdf",
+      "file_size_bytes": 14950,
+      "upload_start": "2026-04-25T18:35:54.005614",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 0.88,
+      "document_id": "sim-21668732",
+      "status": "completed",
+      "message": "Document processed successfully. 2 pages extracted, 16 chunks indexed.",
+      "pages_extracted": 2,
+      "chunks_indexed": 16,
+      "upload_end": "2026-04-25T18:35:54.005615",
+      "doc_type": "contract",
+      "language": "es",
+      "metadata": {
+        "page_count": 2
+      }
+    },
+    {
+      "filename": "patent_application_draft.pdf",
+      "file_size_bytes": 94310,
+      "upload_start": "2026-04-25T18:35:54.005616",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 3.21,
+      "document_id": "sim-89254563",
+      "status": "completed",
+      "message": "Document processed successfully. 8 pages extracted, 55 chunks indexed.",
+      "pages_extracted": 8,
+      "chunks_indexed": 55,
+      "upload_end": "2026-04-25T18:35:54.005617",
+      "doc_type": "legal",
+      "language": "en",
+      "metadata": {
+        "page_count": 8
+      }
+    },
+    {
+      "filename": "court_filing_motion.pdf",
+      "file_size_bytes": 49868,
+      "upload_start": "2026-04-25T18:35:54.005618",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 1.93,
+      "document_id": "sim-66629388",
+      "status": "completed",
+      "message": "Document processed successfully. 5 pages extracted, 35 chunks indexed.",
+      "pages_extracted": 5,
+      "chunks_indexed": 35,
+      "upload_end": "2026-04-25T18:35:54.005619",
+      "doc_type": "legal",
+      "language": "en",
+      "metadata": {
+        "page_count": 5
+      }
+    },
+    {
+      "filename": "API_specification_v2.pdf",
+      "file_size_bytes": 121241,
+      "upload_start": "2026-04-25T18:35:54.005620",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 3.95,
+      "document_id": "sim-14265799",
+      "status": "completed",
+      "message": "Document processed successfully. 10 pages extracted, 72 chunks indexed.",
+      "pages_extracted": 10,
+      "chunks_indexed": 72,
+      "upload_end": "2026-04-25T18:35:54.005621",
+      "doc_type": "report",
+      "language": "en",
+      "metadata": {
+        "page_count": 10
+      }
+    },
+    {
+      "filename": "employee_handbook_2025.pdf",
+      "file_size_bytes": 191180,
+      "upload_start": "2026-04-25T18:35:54.005622",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 5.62,
+      "document_id": "sim-13999315",
+      "status": "completed",
+      "message": "Document processed successfully. 15 pages extracted, 104 chunks indexed.",
+      "pages_extracted": 15,
+      "chunks_indexed": 104,
+      "upload_end": "2026-04-25T18:35:54.005623",
+      "doc_type": "contract",
+      "language": "en",
+      "metadata": {
+        "page_count": 15
+      }
+    },
+    {
+      "filename": "market_analysis_Q1.pdf",
+      "file_size_bytes": 74649,
+      "upload_start": "2026-04-25T18:35:54.005624",
+      "success": true,
+      "error": null,
+      "http_status": 200,
+      "response_time_sec": 2.78,
+      "document_id": "sim-22575562",
+      "status": "completed",
+      "message": "Document processed successfully. 7 pages extracted, 48 chunks indexed.",
+      "pages_extracted": 7,
+      "chunks_indexed": 48,
+      "upload_end": "2026-04-25T18:35:54.005625",
+      "doc_type": "report",
+      "language": "en",
+      "metadata": {
+        "page_count": 7
+      }
+    }
+  ],
+  "ai_review": [
+    {
+      "filename": "test_nda_03.pdf",
+      "doc_type_label": "nda",
+      "doc_type_detected": "contract",
+      "query": "What are the confidentiality obligations and term?",
+      "num_results": 3,
+      "top_score": 1.6405,
+      "ai_output": "by either party. Obligations of Receiving Party:\nThe Receiving Party agrees to hold all Confidential Information in\nstrict confidence and not disclose to any third parties."
+    },
+    {
+      "filename": "test_invoice_08.pdf",
+      "doc_type_label": "invoice",
+      "doc_type_detected": "invoice",
+      "query": "What is the total amount due and payment terms?",
+      "num_results": 3,
+      "top_score": 4.6133,
+      "ai_output": "00 Total Due:\n$15,000.00"
+    },
+    {
+      "filename": "test_financial_05.pdf",
+      "doc_type_label": "financial",
+      "doc_type_detected": "report",
+      "query": "What was the total revenue and growth rate?",
+      "num_results": 3,
+      "top_score": 2.5142,
+      "ai_output": "026 Executive Summary:\nQ3 2023 showed strong revenue growth\nof 35% compared to the previous year."
+    },
+    {
+      "filename": "test_employment_03.pdf",
+      "doc_type_label": "employment",
+      "doc_type_detected": "contract",
+      "query": "What is the salary and benefits package?",
+      "num_results": 3,
+      "top_score": -6.7303,
+      "ai_output": "25, 2024 Compensation:\nAnnual Salary: $120,000\nPay Frequency: Bi-weekly"
+    },
+    {
+      "filename": "test_contract_06.pdf",
+      "doc_type_label": "contract",
+      "doc_type_detected": "contract",
+      "query": "What is the termination clause and governing law?",
+      "num_results": 3,
+      "top_score": -1.842,
+      "ai_output": "otice. Governing Law:\nThis Agreement shall be governed by the laws of Texas."
+    }
+  ]
+}

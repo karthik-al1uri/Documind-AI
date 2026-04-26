@@ -1,0 +1,47 @@
+[
+  {
+    "filename": "test_nda_03.pdf",
+    "doc_type_label": "nda",
+    "doc_type_detected": "contract",
+    "query": "What are the confidentiality obligations and term?",
+    "num_results": 3,
+    "top_score": 1.6405,
+    "ai_output": "by either party. Obligations of Receiving Party:\nThe Receiving Party agrees to hold all Confidential Information in\nstrict confidence and not disclose to any third parties."
+  },
+  {
+    "filename": "test_invoice_08.pdf",
+    "doc_type_label": "invoice",
+    "doc_type_detected": "invoice",
+    "query": "What is the total amount due and payment terms?",
+    "num_results": 3,
+    "top_score": 4.6133,
+    "ai_output": "00 Total Due:\n$15,000.00"
+  },
+  {
+    "filename": "test_financial_05.pdf",
+    "doc_type_label": "financial",
+    "doc_type_detected": "report",
+    "query": "What was the total revenue and growth rate?",
+    "num_results": 3,
+    "top_score": 2.5142,
+    "ai_output": "026 Executive Summary:\nQ3 2023 showed strong revenue growth\nof 35% compared to the previous year."
+  },
+  {
+    "filename": "test_employment_03.pdf",
+    "doc_type_label": "employment",
+    "doc_type_detected": "contract",
+    "query": "What is the salary and benefits package?",
+    "num_results": 3,
+    "top_score": -6.7303,
+    "ai_output": "25, 2024 Compensation:\nAnnual Salary: $120,000\nPay Frequency: Bi-weekly"
+  },
+  {
+    "filename": "test_contract_06.pdf",
+    "doc_type_label": "contract",
+    "doc_type_detected": "contract",
+    "query": "What is the termination clause and governing law?",
+    "num_results": 3,
+    "top_score": -1.842,
+    "ai_output": "otice. Governing Law:\nThis Agreement shall be governed by the laws of Texas."
+  }
+]
